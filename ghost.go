@@ -12,7 +12,7 @@ type Dbconfig struct {
   Visible string
 }
 var conf Dbconfig
-func Init(a) {
+func Init() {
   if _,
   err := os.Stat("./.DB"); os.IsNotExist(err) {
     err := os.Mkdir("./.DB", 0700)
