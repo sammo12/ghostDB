@@ -7,27 +7,27 @@ here is a golang example
 ```go
 package main
 import (
-  "github.com/sammo12/ghostdb/ghostdb-go"
+db "github.com/sammo12/ghostdb/ghostdb-go"
   "fmt"
 )
 func main()  {
 
-ghost.Init()
+db.Init()
 \\reqired to initialize the database
 
-ghost.Set("collection-1","examplekey","examplevalue")
+db.Set("collection-1","examplekey","examplevalue")
 \\ creating data in in collection 'collection-1'
 
-ghost.Get("collection-1","examplekey")
+db.Get("collection-1","examplekey")
 \\ reading the data 
   
-ghost.Del("collection-1","examplekey")
+db.Del("collection-1","examplekey")
 \\ delete the data
   
-ghost.Delcol("collection-1")
+db.Delcol("collection-1")
 \\ delete the whole data collections
 
-ghost.Update("collection-1","examplekey","an exaple value")
+db.Update("collection-1","examplekey","an exaple value")
 \\ updating data
 
 }
