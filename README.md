@@ -30,6 +30,8 @@ db.Delcol("collection-1")
 db.Update("collection-1","examplekey","an exaple value")
 \\ updating data
 
+db.Getall("collection-1")
+\\get all data from entire collection
 }
 
 ```
