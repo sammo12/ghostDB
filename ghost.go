@@ -5,6 +5,7 @@ import (
   "fmt"
   "io/ioutil"
   "encoding/json"
+  "strings"
 )
 
 type Dbconfig struct {
@@ -21,14 +22,12 @@ func Init() {
     }
   }
   content, errd := ioutil.ReadFile("dbconfig.json")
-  if errd != nil {
-    fmt.Println(errd)
-  }
+  if errd != nil {}
   json.Unmarshal([]byte(string(content)), &conf)
 }
 func Set(coll string, key string, val string) {
   chk := "./.DB/."+coll
-  khk := chk+"/"+key+".ln"
+  khk := chk+"/"+key+".[]"
   khkb := []byte(val)
   if _,error := os.Stat(chk); os.IsNotExist(error) {
     os.Mkdir(chk,0700)
@@ -39,7 +38,7 @@ func Set(coll string, key string, val string) {
 }
 func Get(coll string, key string) string{
   chk := "./.DB/."+coll
-  khk := chk+"/"+key+".ln"
+  khk := chk+"/"+key+".[]"
   out,err:=ioutil.ReadFile(khk)
   if err!= nil{
     fmt.Println(err)
@@ -48,7 +47,7 @@ func Get(coll string, key string) string{
 }
 func Del(coll string, key string){
   chk := "./.DB/."+coll
-  khk := chk+"/"+key+".ln"
+  khk := chk+"/"+key+".[]"
   os.Remove(khk)
 }
 func Delcol(coll string){
@@ -57,10 +56,28 @@ func Delcol(coll string){
 }
 func Update(coll string,key string,val string) {
   chk := "./.DB/."+coll
-  khk := chk+"/"+key+".ln"
+  khk := chk+"/"+key+".[]"
   khkb := []byte(val)
   err:=ioutil.WriteFile(khk,khkb,0)
   if err!=nil{
     fmt.Println(err)
   }
+}
+func Getall(coll string) []string{
+  chk := "./.DB/."+coll
+  files, _ := ioutil.ReadDir(chk)
+  var k []string
+  for _, f := range files {
+    if strings.HasSuffix(f.Name(), ".[]") {
+        k=append(k,f.Name())
+    }
+  }
+  i:=len(k)
+  for j:=0;j<i;j++ {
+      k[j]=strings.TrimRight(k[j], ".[]")
+  }
+  for m:=0;m<i;m++{
+      k[m]=Get(coll,k[m])
+  }
+  return k
 }
