@@ -1,5 +1,5 @@
 # ghostDB
-a minimal and easy to use database written in go
+a minimal and easy to use database written in go for better CRUD operations
 # Installation
 `go get www.github.com/sammo12/ghostDB`
 # Getting Started
